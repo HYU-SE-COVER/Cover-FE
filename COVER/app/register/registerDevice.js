@@ -73,7 +73,7 @@ function RegisterDevice () {
                 {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
             </View>
 
-            <Pressable onPress={() => router.push('/register/registerIR')} style={nextBtn.otherOptionsBtn}>
+            <Pressable onPress={() => router.push('/register/registerIR')} style={({pressed}) => [nextBtn.otherOptionsBtn, pressed && nextBtn.pressedItem]}>
                 <View>
                     <Text style={nextBtn.btnMainText}>다른 방법으로 추가할래요.</Text>
                     <Text style={nextBtn.btnSubText}>제품을 수동으로 매칭하여 직접 추가할 수 있어요.</Text>
@@ -268,5 +268,8 @@ const nextBtn = StyleSheet.create({
         transform: [{scaleY: 2}],
         fontWeight: '200',
         marginTop: -5.5
+    },
+    pressedItem: {
+        opacity: 0.7
     }
 });

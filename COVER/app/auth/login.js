@@ -9,7 +9,7 @@ function Login() {
         <View style={styles.container}>
             <View style={styles.changeLanguageContainer}>
                 <View style={styles.changeLanguage}>
-                    <Text >Korea, 한국어</Text>
+                    <Text style={styles.languageText}>Korea, 한국어</Text>
                     <Text style={styles.dropdownTriangle}>&#x25BC;</Text>
                 </View>
             </View>
@@ -23,15 +23,6 @@ function Login() {
                 <View style={styles.LogoImageContainer}>
                     <Image style={styles.logoImage} source={require('../images/logoImages.png')}/>
                 </View>
-                    {/* <View style={styles.LogoImageContainer}>
-                        <Image style={styles.logoImage} source={require('../images/matter.png')} resizeMode='contain'/>
-                    </View>
-                    <View style={styles.LogoImageContainer}>
-                        <Image style={styles.logoImage} source={require('../images/thinq.png')} resizeMode='contain'/>
-                    </View>
-                    <View style={styles.LogoImageContainer}>
-                        <Image style={styles.logoImage} source={require('../images/ir.png')} resizeMode='contain'/>
-                    </View> */}
             </View>
 
             <View style={styles.inputField}>
@@ -39,7 +30,7 @@ function Login() {
                     <TextInput style={styles.textInput} placeholder='이메일 또는 휴대폰 번호 아이디를 입력해 주세요'/>
 
                     <Text style={styles.inputLabel}>비밀번호</Text>
-                    <TextInput style={styles.textInput} placeholder='비밀번호를 입력해 주세요'/>
+                    <TextInput secureTextEntry={true} style={styles.textInput} placeholder='비밀번호를 입력해 주세요'/>
             </View>
             <Pressable style={({pressed}) => [styles.loginButton, pressed && styles.pressedItem]}
             onPress={() => routing.replace('/home')}>
@@ -94,6 +85,9 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(0, 0, 0, 0.3)',
         borderRadius: 50,
         backgroundColor: 'rgba(107, 107, 107, 0.04)'
+    },
+    languageText: {
+        fontSize: 12
     },
     dropdownTriangle: {
         fontSize: 12,
@@ -194,8 +188,8 @@ const styles = StyleSheet.create({
     partitionText: {
         paddingHorizontal: 5,
         fontSize: 12,
-        backgroundColor: '#f5f5f5',
-        opacity: 0.5
+        color: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'white',
     },
     SNSloginButton: {
         width: '100%',
@@ -206,11 +200,12 @@ const styles = StyleSheet.create({
         marginTop: 12,
         marginBottom: 8,
         alignItems: 'center',
-        padding: 12
+        padding: 10
     },
     SNSloginText: {
         fontSize: 14,
         fontWeight: '400',
         opacity: 0.9,
+        marginTop: 2
     },
 })

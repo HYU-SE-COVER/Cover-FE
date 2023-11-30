@@ -40,7 +40,7 @@ function RegisterIR () {
                 <View style={styles.optionItemContainer}>
                     {optionsArr.map((item, index) => (
                         <View key={index}>
-                            <Pressable onPress={() => router.push('/register/IRremote')}>
+                            <Pressable onPress={() => router.push('/register/IRremote')} style={({pressed}) => [{}, pressed && styles.pressedItem]}>
                                 <View style={styles.deviceBlock}>
                                     <Image style={styles.deviceImage} source={item.img} />
                                     <Text style={styles.deviceNameText}>{item.name}</Text>
@@ -108,6 +108,9 @@ const styles = StyleSheet.create({
         width: 30, 
         height: 30,
         marginBottom: 10
+    },
+    pressedItem: {
+        opacity: 0.7
     }
     
 });
