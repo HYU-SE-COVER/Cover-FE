@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, TextInput, ActivityIndicator } from 'react-native';
+import { Pressable, StyleSheet, Text, View, TextInput, ActivityIndicator, Image } from 'react-native';
 import {React, useState, useEffect} from 'react';
 import { Link, useRouter, useLocalSearchParams, Stack } from 'expo-router';
 
@@ -6,26 +6,58 @@ function IRremote () {
     const router = useRouter();
 
     const [startedMatching, setStartedMatching] = useState(false);
+    const [showOptions, setShowOptions] = useState(false);
     const [isMatching, setIsMatching] = useState(false);
 
     function startMatching() {
         setStartedMatching(true);
     }
 
+    useEffect(() => {
+        let timer;
+        if (startedMatching) {
+          timer = setTimeout(() => {
+            setStartedMatching(false);
+            setShowOptions(true);
+          }, 4000);
+        }
+    
+        return () => {
+            clearTimeout(timer);
+            
+        } // 컴포넌트가 언마운트되거나 isVisible이 변경될 때 타이머 정리
+    }, [startMatching]);
+
     function Match() {
+        setShowOptions(false);
         setIsMatching(true);
     }
 
+    const [backgroundColor, setBackgroundColor] = useState('transparent');
+    const [isBlinking, setIsBlinking] = useState(false);
+    function ReceiveSignal() {
+        setBackgroundColor('rgba(213, 38, 38, 0.6)');
+        setIsBlinking(true);
+    }
     useEffect(() => {
-        let timer;
-        if (isMatching) {
-          timer = setTimeout(() => {
-            setIsMatching(false);
-          }, 3000);
+        let interval;
+        if (isBlinking) {
+            interval = setInterval(() => {}, 500);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                setIsBlinking(false);
+                setBackgroundColor('transparent'); 
+            }, 1000);
         }
-    
-        return () => clearTimeout(timer); // 컴포넌트가 언마운트되거나 isVisible이 변경될 때 타이머 정리
-      }, [isMatching]);
+
+        return () => {
+            if (interval) {
+                clearInterval(interval);
+            }
+        };
+    }, [isBlinking]);
+
 
     return (
         <View style={styles.container}>
@@ -45,47 +77,62 @@ function IRremote () {
                 </View>
             </Pressable>
 
-            {startedMatching && !isMatching &&
+            {startedMatching && 
+            (<View style={loadingCircle.container}>
+                <ActivityIndicator size="large" style={{ transform: [{ scaleX: 4 }, { scaleY: 4 }] }} color={'black'} />
+                <Text style={loadingCircle.text}>매칭 중</Text>
+            </View>)}
+
+            {showOptions &&
+            (<View style={controllerOptions.container}>
+                <Pressable onPress={Match}>
+                    <View style={controllerOptions.optionContainer}><Text style={controllerOptions.optiontext}>리모컨 1</Text></View>
+                </Pressable>
+                <Pressable onPress={Match}>
+                    <View style={controllerOptions.optionContainer}><Text style={controllerOptions.optiontext}>리모컨 2</Text></View>
+                </Pressable>
+                <Pressable onPress={Match}>
+                    <View style={controllerOptions.optionContainer}><Text style={controllerOptions.optiontext}>리모컨 3</Text></View>
+                </Pressable>
+            </View>)}
+
+            {isMatching &&
             (<View style={controllerStyles.controllerContainer}>
-                <View style={controllerStyles.signalDot}></View>
+                <View style={controllerStyles.signalDot} backgroundColor={backgroundColor}></View>
                 <View style={controllerStyles.btnContainer}>
-                    <Pressable onPress={Match}>
+                    <Pressable onPress={ReceiveSignal} style={({pressed}) => [{}, pressed && controllerStyles.pressedItem]}>
                         <View style={controllerStyles.controllerBtn}><Text style={controllerStyles.controllerBtnText}>ON</Text></View>
                     </Pressable>
                     <View style={controllerStyles.controllerTextContainer}><Text style={controllerStyles.controllerBtnText}>전원</Text></View>
-                    <Pressable onPress={Match}>
+                    <Pressable onPress={ReceiveSignal} style={({pressed}) => [{}, pressed && controllerStyles.pressedItem]}>
                         <View style={controllerStyles.controllerBtn}><Text style={controllerStyles.controllerBtnText}>OFF</Text></View>
                     </Pressable>
                 </View>
                 <View style={controllerStyles.btnContainer}>
-                    <Pressable onPress={Match}>
+                    <Pressable onPress={ReceiveSignal} style={({pressed}) => [{}, pressed && controllerStyles.pressedItem]}>
                         <View style={controllerStyles.controllerBtn}><Text style={controllerStyles.controllerBtnText}>+</Text></View>
                     </Pressable>
                     <View style={controllerStyles.controllerTextContainer}><Text style={controllerStyles.controllerBtnText}>밝기</Text></View>
-                    <Pressable onPress={Match}>
+                    <Pressable onPress={ReceiveSignal} style={({pressed}) => [{}, pressed && controllerStyles.pressedItem]}>
                         <View style={controllerStyles.controllerBtn}><Text style={controllerStyles.controllerBtnText}>-</Text></View>
                     </Pressable>
                 </View>
                 <View style={controllerStyles.btnContainer}>
-                    <Pressable onPress={Match}>
+                    <Pressable onPress={ReceiveSignal} style={({pressed}) => [{}, pressed && controllerStyles.pressedItem]}>
                         <View style={controllerStyles.controllerBtn}><Text style={controllerStyles.controllerBtnText}>+</Text></View>
                     </Pressable>
                     <View style={controllerStyles.controllerTextContainer}><Text style={controllerStyles.controllerBtnText}>색 온도</Text></View>
-                    <Pressable onPress={Match}>
+                    <Pressable onPress={ReceiveSignal} style={({pressed}) => [{}, pressed && controllerStyles.pressedItem]}>
                         <View style={controllerStyles.controllerBtn}><Text style={controllerStyles.controllerBtnText}>-</Text></View>
                     </Pressable>
                 </View>
                 <View style={controllerStyles.btnContainer}>
-                    <View style={controllerStyles.controllerBtn}></View>
-                    <View style={controllerStyles.controllerBtn}></View>
-                    <View style={controllerStyles.controllerBtn}></View>
+                    <View style={controllerStyles.controllerBtn}><Image source={require('./../images/etc/option1.png')} style={controllerStyles.img}/></View>
+                    <View style={controllerStyles.controllerBtn}><Image source={require('./../images/etc/option2.png')} style={controllerStyles.img}/></View>
+                    <View style={controllerStyles.controllerBtn}><Image source={require('./../images/etc/option3.png')} style={controllerStyles.img}/></View>
                 </View>
             </View>)}
 
-            {isMatching && 
-            (<View style={loadingCircle.container}>
-                <ActivityIndicator size="large"style={{ transform: [{ scaleX: 4 }, { scaleY: 4 }] }} color={'black'} />
-            </View>)}
 
             
         </View>
@@ -146,7 +193,7 @@ const controllerStyles = StyleSheet.create({
         height: 15,
         width: 15,
         borderRadius: 7.5,
-        backgroundColor: 'rgba(213, 38, 38, 0.6)',
+        // backgroundColor: 'rgba(213, 38, 38, 0.6)',
         marginBottom: 40
     },
     btnContainer: {
@@ -174,16 +221,55 @@ const controllerStyles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '700'
     },
-    
+    pressedItem: {
+        opacity: 0.3
+    },
+    img: {
+        height: 35,
+        width: 35
+    }
 
 });
 
 const loadingCircle = StyleSheet.create({
     container: {
         width: '100%',
-        height: 400,
+        height: 500,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
+    text: {
+        marginTop: 80,
+        fontSize: 16,
+        fontWeight: '600'
+    }
 });
-  
+
+const controllerOptions = StyleSheet.create({
+    container: {
+        width: '100%',
+        height: 566,
+        borderRadius: 15,
+        borderColor: 'rgba(58, 117, 230, 0.15)',
+        borderWidth: 3,
+        marginTop: 15,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        padding: 10,
+    },
+    optionContainer: {
+        width: 360,
+        height: 40,
+        backgroundColor: 'rgba(58, 117, 230, 0.15)',
+        borderRadius: 20,
+        marginBottom: 10,
+        padding: 13,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    optiontext: {
+        fontSize: 14,
+        fontWeight: '600'
+    },
+    
+});

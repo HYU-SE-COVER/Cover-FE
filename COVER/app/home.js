@@ -7,13 +7,13 @@ const home = () => {
     // const routing = useRouter();
 
     const livingroomArr = [
-        {name: '전등', onoff: '꺼짐', state: '', deviceImg: require('./images/devices/light.png'), networkImg: require('./images/matter.png'), style: styles.networkMatterImage},
-        {name: '에어컨', onoff: '켜짐', state: '23°C 냉방', deviceImg: require('./images/devices/airconditioner.png'), networkImg: require('./images/ir.png'), style: styles.networkImage},
-        {name: 'TV', onoff: '꺼짐', state: 'YouTube 시청 중', deviceImg: require('./images/devices/tv.png'), networkImg: require('./images/matter.png'), style: styles.networkMatterImage},
-        {name: '공기청정기', onoff: '켜짐', state: '공기질 좋음', deviceImg: require('./images/devices/airpurifier.png'), networkImg: require('./images/thinq.png'), style: styles.networkImage},
-        {name: '와인 셀러', onoff: '켜짐', state: '16°C', deviceImg: require('./images/devices/winecellar.png'), networkImg: require('./images/matter.png'), style: styles.networkMatterImage},
-        {name: '청소기', onoff: '꺼짐', state: '충전중', deviceImg: require('./images/devices/vaccumcleaner.png'), networkImg: require('./images/thinq.png'), style: styles.networkImage},
-        {name: '세탁기', onoff: '꺼짐', state: '오후 6시에 예약', deviceImg: require('./images/devices/washingmachine.png'), networkImg: require('./images/thinq.png'), style: styles.networkImage},
+        {name: '전등', onoff: '꺼짐', state: '', deviceImg: require('./images/devices/light.png'), networkImg: require('./images/matter2.png')},
+        {name: '에어컨', onoff: '켜짐', state: '23°C 냉방', deviceImg: require('./images/devices/airconditioner.png'), networkImg: require('./images/ir2.png')},
+        {name: 'TV', onoff: '꺼짐', state: 'YouTube 시청 중', deviceImg: require('./images/devices/tv.png'), networkImg: require('./images/matter2.png')},
+        {name: '공기청정기', onoff: '켜짐', state: '공기질 좋음', deviceImg: require('./images/devices/airpurifier.png'), networkImg: require('./images/thinq.png')},
+        {name: '와인 셀러', onoff: '켜짐', state: '16°C', deviceImg: require('./images/devices/winecellar.png'), networkImg: require('./images/matter2.png')},
+        {name: '청소기', onoff: '꺼짐', state: '충전중', deviceImg: require('./images/devices/vaccumcleaner.png'), networkImg: require('./images/thinq.png')},
+        {name: '세탁기', onoff: '꺼짐', state: '오후 6시에 예약', deviceImg: require('./images/devices/washingmachine.png'), networkImg: require('./images/thinq.png')},
 
     ];
 
@@ -67,7 +67,7 @@ const home = () => {
                                 <Text style={styles.deviceNameText}>{item.name}</Text>
                                 <Text style={styles.deviceStateText}>{item.onoff}</Text>
                                 <Text style={styles.deviceStateText}>{item.state}</Text>
-                                <Image style={item.style} source={item.networkImg} />
+                                <Image style={styles.networkImage} source={item.networkImg} />
                             </View>
                         ))}
                         <Pressable style={({pressed}) => [{}, pressed && SwiperStyles.pressedItem]}
@@ -87,7 +87,7 @@ const home = () => {
                                 <Text style={styles.deviceNameText}>{item.name}</Text>
                                 <Text style={styles.deviceStateText}>{item.onoff}</Text>
                                 <Text style={styles.deviceStateText}>{item.state}</Text>
-                                <Image style={item.style} source={item.networkImg} />
+                                <Image style={styles.networkImage} source={item.networkImg} />
                             </View>
                         ))}
                         <View key={"addDeviceBlock1"} style={[styles.deviceBlock, styles.addDeviceBlock]}>
@@ -184,17 +184,10 @@ const styles = StyleSheet.create({
     },
     networkImage: {
         resizeMode: 'contain',
-        height: 25,
+        height: 20,
         width: 'auto',
-        marginTop: -18,
-        marginRight: -140,
-    },
-    networkMatterImage: {
-        resizeMode: 'contain',
-        height: 25,
-        width: 'auto',
-        marginTop: -18,
-        marginRight: -100,
+        marginTop: -15,
+        marginRight: -145,
     },
     addDeviceBlock: {
         opacity: 0.75,

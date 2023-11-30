@@ -6,18 +6,18 @@ function RegisterIR () {
     const router = useRouter();
 
     const optionsArr = [
-        {name: "에어컨", img: require('../images/matter.png')},
-        {name: "전등", img: require('../images/matter.png')},
-        {name: "공기청정기", img: require('../images/matter.png')},
-        {name: "TV", img: require('../images/matter.png')},
-        {name: "청소기", img: require('../images/matter.png')},
-        {name: "세탁기", img: require('../images/matter.png')},
-        {name: "프로젝터", img: require('../images/matter.png')},
-        {name: "스피커", img: require('../images/matter.png')},
-        {name: "카메라", img: require('../images/matter.png')},
-        {name: "로봇 청소기", img: require('../images/matter.png')},
-        {name: "건조기", img: require('../images/matter.png')},
-        {name: "기타", img: require('../images/matter.png')},
+        {name: "에어컨", img: require('../images/devices/airconditioner.png')},
+        {name: "전등", img: require('../images/devices/light.png')},
+        {name: "공기청정기", img: require('../images/devices/airpurifier.png')},
+        {name: "TV", img: require('../images/devices/tv.png')},
+        {name: "청소기", img: require('../images/devices/vaccumcleaner.png')},
+        {name: "세탁기", img: require('../images/devices/washingmachine.png')},
+        {name: "프로젝터", img: require('../images/devices/projecter.png')},
+        {name: "스피커", img: require('../images/devices/speaker.png')},
+        {name: "카메라", img: require('../images/devices/camera.png')},
+        {name: "로봇 청소기", img: require('../images/devices/robotcleaner.png')},
+        {name: "건조기", img: require('../images/devices/dryer.png')},
+        {name: "기타", img: require('../images/devices/else.png')},
     ];
     
     return (
@@ -27,7 +27,8 @@ function RegisterIR () {
             />
 
             <Pressable onPress={() => router.push('/register/registerLGdb')} style={nextBtn.otherOptionsBtn}>
-                <View>
+                <View style={nextBtn.otherOptionsContainer}>
+                    <Image source={require('../images/devices/remotecontroller.png')} style={nextBtn.remotecontrollerImg}/>
                     <Text style={nextBtn.btnMainText}>LG 리모컨 설정 가져오기</Text>
                 </View>
                 <View><Text style={nextBtn.arrow}>{'>'}</Text></View>
@@ -105,7 +106,8 @@ const styles = StyleSheet.create({
     },
     deviceImage: {
         width: 30, 
-        height: 30
+        height: 30,
+        marginBottom: 10
     }
     
 });
@@ -122,6 +124,16 @@ const nextBtn = StyleSheet.create({
         padding: 20,
         flexDirection: 'row',
         marginBottom: 20
+    },
+    otherOptionsContainer: {
+        flexDirection: 'row',
+    },
+    remotecontrollerImg: {
+        height: 25,
+        width: 25,
+        resizeMode: 'contain',
+        marginTop: 5,
+        marginRight: 10
     },
     btnMainText: {
         fontSize: 16,
