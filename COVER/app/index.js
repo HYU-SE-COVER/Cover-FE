@@ -4,6 +4,8 @@ import { StyleSheet, View, Text } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
+
+
 // const fetchFonts = () => {
 //     return Font.loadAsync({
 //       'Inter': require('../assets/fonts/Inter.ttf'),
@@ -22,6 +24,7 @@ const index = () => {
     //     />
     //     );
     // }
+    
 
     const [logoVisible, setLogoVisible] = useState(true);
     useEffect(() => {

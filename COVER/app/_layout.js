@@ -4,10 +4,11 @@ export default function Layout() {
     return (
         <Stack screenOptions={{
             headerStyle: {
-                backgroundColor: "#f5f5f5"
+                backgroundColor: "#f5f5f5",
             },
             headerTintColor: "black",
-            backgroundColor: '#f5f5f5'
+            backgroundColor: '#f5f5f5',
+            headerBackTitleVisible: false
         }}>
             <Stack.Screen name='index' options={{headerShown: false}}/> 
             <Stack.Screen name='auth/login' options={{headerShown: false}}/> 

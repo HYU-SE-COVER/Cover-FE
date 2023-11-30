@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, View, Text, TextInput, Button, Modal, Pressable } from "react-native";
+import { StyleSheet, View, Text, TextInput, Button, Modal, Pressable, Image } from "react-native";
 import { Link, useRouter } from "expo-router";
 
 function Login() {
@@ -19,6 +19,21 @@ function Login() {
                 <Text style={styles.coverLogo}>Cover</Text>
             </View>
 
+            <View style={styles.networkLogoContainer}>
+                <View style={styles.LogoImageContainer}>
+                    <Image style={styles.logoImage} source={require('../images/logoImages.png')}/>
+                </View>
+                    {/* <View style={styles.LogoImageContainer}>
+                        <Image style={styles.logoImage} source={require('../images/matter.png')} resizeMode='contain'/>
+                    </View>
+                    <View style={styles.LogoImageContainer}>
+                        <Image style={styles.logoImage} source={require('../images/thinq.png')} resizeMode='contain'/>
+                    </View>
+                    <View style={styles.LogoImageContainer}>
+                        <Image style={styles.logoImage} source={require('../images/ir.png')} resizeMode='contain'/>
+                    </View> */}
+            </View>
+
             <View style={styles.inputField}>
                     <Text style={styles.inputLabel}>아이디</Text>
                     <TextInput style={styles.textInput} placeholder='이메일 또는 휴대폰 번호 아이디를 입력해 주세요'/>
@@ -27,7 +42,7 @@ function Login() {
                     <TextInput style={styles.textInput} placeholder='비밀번호를 입력해 주세요'/>
             </View>
             <Pressable style={({pressed}) => [styles.loginButton, pressed && styles.pressedItem]}
-            onPress={() => routing.push('/home')}>
+            onPress={() => routing.replace('/home')}>
                 <View>
                     <Text style={styles.loginText}>로그인</Text>
                 </View>
@@ -60,6 +75,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         padding: 20,
+        backgroundColor: 'white'
     },
     changeLanguageContainer: {
         width: '100%',
@@ -91,7 +107,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: 'row',
         marginTop: 72,
-        marginBottom: 40
     },
     lgLogo: {
         fontSize: 32,
@@ -104,6 +119,20 @@ const styles = StyleSheet.create({
         // fontFamily: 'Inter',
         fontWeight: '600',
         color: '#a50034'
+    },
+    networkLogoContainer: {
+        width: '100%',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        marginTop: -10
+    },
+    LogoImageContainer: {
+        width: 150,
+        alignItems: 'flex-start'
+    },
+    logoImage: {
+        width: '100%',
+        resizeMode: 'contain'
     },
     inputField: {
         width: '100%',
