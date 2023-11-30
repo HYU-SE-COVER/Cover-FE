@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View, Image } from 'react-native';
 import {React, useState, useEffect} from 'react';
 import { Link, useRouter, useLocalSearchParams, Stack } from 'expo-router';
 import {BarCodeScanner} from 'expo-barcode-scanner';
@@ -58,8 +58,8 @@ function RegisterDevice () {
                 <View style={styles.orderContainer}>
                     <Text style={styles.orderText}>아래 QR을 제품에서 찾아 스캔해주세요.</Text>
                     <View style={styles.networkContainer}>
-                        <View style={styles.networkImgContainer}></View>
-                        <View style={styles.networkImgContainer}></View>
+                        <View style={styles.networkImgContainer}><Image source={require('./../images/thinqQR.png')} style={styles.qrImg}/></View>
+                        <View style={styles.networkImgContainer}><Image source={require('./../images/matterQR.png')} style={styles.qrImg}/></View>
                     </View>
                 </View>
 
@@ -229,7 +229,13 @@ const styles = StyleSheet.create({
         height: 60,
         borderRadius: 10,
         backgroundColor: 'white',
-        marginHorizontal: 8
+        marginHorizontal: 8,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    qrImg: {
+        height: '100%',
+        resizeMode: 'contain'
     }
 
 });

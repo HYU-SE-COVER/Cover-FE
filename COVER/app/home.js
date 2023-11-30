@@ -7,13 +7,13 @@ const home = () => {
     // const routing = useRouter();
 
     const livingroomArr = [
-        {name: '전등', onoff: '꺼짐', state: '', deviceImg: require('./images/devices/light.png'), networkImg: require('./images/matter.png')},
-        {name: '에어컨', onoff: '켜짐', state: '23°C 냉방', deviceImg: require('./images/devices/airconditioner.png'), networkImg: require('./images/ir.png')},
-        {name: 'TV', onoff: '꺼짐', state: 'YouTube 시청 중', deviceImg: require('./images/devices/tv.png'), networkImg: require('./images/matter.png')},
-        {name: '공기청정기', onoff: '켜짐', state: '공기질 좋음', deviceImg: require('./images/devices/airpurifier.png'), networkImg: require('./images/thinq.png')},
-        {name: '와인 셀러', onoff: '켜짐', state: '16°C', deviceImg: require('./images/devices/winecellar.png'), networkImg: require('./images/matter.png')},
-        {name: '청소기', onoff: '꺼짐', state: '충전중', deviceImg: require('./images/devices/vaccumcleaner.png'), networkImg: require('./images/thinq.png')},
-        {name: '세탁기', onoff: '꺼짐', state: '오후 6시에 예약', deviceImg: require('./images/devices/washingmachine.png'), networkImg: require('./images/thinq.png')},
+        {name: '전등', onoff: '꺼짐', state: '', deviceImg: require('./images/devices/light.png'), networkImg: require('./images/matter.png'), style: styles.networkMatterImage},
+        {name: '에어컨', onoff: '켜짐', state: '23°C 냉방', deviceImg: require('./images/devices/airconditioner.png'), networkImg: require('./images/ir.png'), style: styles.networkImage},
+        {name: 'TV', onoff: '꺼짐', state: 'YouTube 시청 중', deviceImg: require('./images/devices/tv.png'), networkImg: require('./images/matter.png'), style: styles.networkMatterImage},
+        {name: '공기청정기', onoff: '켜짐', state: '공기질 좋음', deviceImg: require('./images/devices/airpurifier.png'), networkImg: require('./images/thinq.png'), style: styles.networkImage},
+        {name: '와인 셀러', onoff: '켜짐', state: '16°C', deviceImg: require('./images/devices/winecellar.png'), networkImg: require('./images/matter.png'), style: styles.networkMatterImage},
+        {name: '청소기', onoff: '꺼짐', state: '충전중', deviceImg: require('./images/devices/vaccumcleaner.png'), networkImg: require('./images/thinq.png'), style: styles.networkImage},
+        {name: '세탁기', onoff: '꺼짐', state: '오후 6시에 예약', deviceImg: require('./images/devices/washingmachine.png'), networkImg: require('./images/thinq.png'), style: styles.networkImage},
 
     ];
 
@@ -67,12 +67,15 @@ const home = () => {
                                 <Text style={styles.deviceNameText}>{item.name}</Text>
                                 <Text style={styles.deviceStateText}>{item.onoff}</Text>
                                 <Text style={styles.deviceStateText}>{item.state}</Text>
-                                <Image style={styles.networkImage} source={item.networkImg} />
+                                <Image style={item.style} source={item.networkImg} />
                             </View>
                         ))}
-                        <View key={"addDeviceBlock1"} style={[styles.deviceBlock, styles.addDeviceBlock]}>
-                            
-                        </View>
+                        <Pressable style={({pressed}) => [{}, pressed && SwiperStyles.pressedItem]}
+                            onPress={() => router.push('./register/registerDevice')}>
+                            <View key={"addDeviceBlock1"} style={[styles.deviceBlock, styles.addDeviceBlock]}>
+                                <Image source={require('./images/devices/plus.png')} style={styles.plus}/>
+                            </View>
+                        </Pressable>
                     </View>
                 </View>
                 <View >
@@ -84,11 +87,11 @@ const home = () => {
                                 <Text style={styles.deviceNameText}>{item.name}</Text>
                                 <Text style={styles.deviceStateText}>{item.onoff}</Text>
                                 <Text style={styles.deviceStateText}>{item.state}</Text>
-                                <Image style={styles.networkImage} source={item.networkImg} />
+                                <Image style={item.style} source={item.networkImg} />
                             </View>
                         ))}
                         <View key={"addDeviceBlock1"} style={[styles.deviceBlock, styles.addDeviceBlock]}>
-                            
+                            <Image source={require('./images/devices/plus.png')} style={styles.plus}/>
                         </View>
                     </View>
                 </View>
@@ -161,9 +164,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowOffset:  {width: 0, height: 4},
     },
-    addDeviceBlock: {
-        opacity: 0.75
-    },
     deviceImage: {
         resizeMode: 'contain',
         height: 25,
@@ -186,8 +186,24 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         height: 25,
         width: 'auto',
-        marginTop: -20,
-        marginRight: -130
+        marginTop: -18,
+        marginRight: -140,
+    },
+    networkMatterImage: {
+        resizeMode: 'contain',
+        height: 25,
+        width: 'auto',
+        marginTop: -18,
+        marginRight: -100,
+    },
+    addDeviceBlock: {
+        opacity: 0.75,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    plus: {
+        height: 60,
+        width: 60
     }
 });
 
@@ -206,7 +222,7 @@ const SwiperStyles = StyleSheet.create({
         marginBottom: -20
     },
     swiperText: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: '400',
         marginLeft: 10
     },
