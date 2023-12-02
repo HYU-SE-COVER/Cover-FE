@@ -44,7 +44,7 @@ const home = () => {
             console.log(res.data);
         })
         .catch(error => console.log(error));
-      };
+    };
 
     return (
         <View style={styles.container}>

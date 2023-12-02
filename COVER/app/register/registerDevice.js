@@ -20,7 +20,9 @@ function RegisterDevice () {
 
     const handleBarCodeScanned = ({ type, data }) => {
         setScanned(true);
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`); // 아래 제품이 맞나요?
+        router.push('/register/registerQR');
+        // alert(`Bar code with type ${type} and data ${data} has been scanned!`); // 아래 제품이 맞나요?
+
     };
 
     if (hasPermission === null) {
