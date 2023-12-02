@@ -1,17 +1,10 @@
 import { StyleSheet, Text, View, Image, ScrollView, Pressable } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, router } from 'expo-router';
 import Swiper from 'react-native-swiper';
+import Axios from 'axios';
 
-const initLivingroomArr = [
-    {name: '전등', onoff: '꺼짐', state: '', deviceImg: require('./images/devices/light.png'), networkImg: require('./images/matter2.png'), isActive: false},
-    {name: '에어컨', onoff: '켜짐', state: '23°C 냉방', deviceImg: require('./images/devices/airconditioner.png'), networkImg: require('./images/ir2.png'), isActive: true},
-    {name: 'TV', onoff: '꺼짐', state: 'YouTube 시청 중', deviceImg: require('./images/devices/tv.png'), networkImg: require('./images/matter2.png'), isActive: false},
-    {name: '공기청정기', onoff: '켜짐', state: '공기질 좋음', deviceImg: require('./images/devices/airpurifier.png'), networkImg: require('./images/thinq.png'), isActive: true},
-    {name: '와인 셀러', onoff: '켜짐', state: '16°C', deviceImg: require('./images/devices/winecellar.png'), networkImg: require('./images/thinq.png'), isActive: true},
-    {name: '청소기', onoff: '꺼짐', state: '충전중', deviceImg: require('./images/devices/vaccumcleaner.png'), networkImg: require('./images/thinq.png'), isActive: false},
-    {name: '세탁기', onoff: '꺼짐', state: '오후 6시에 예약', deviceImg: require('./images/devices/washingmachine.png'), networkImg: require('./images/thinq.png'), isActive: false},
-];
+
 const BedroomArr = [
     {name: '전등', onoff: '꺼짐', state: '', deviceImg: require('./images/devices/light.png'), networkImg: require('./images/matter2.png'), isActive: false},
     {name: '에어컨', onoff: '꺼짐', state: '23°C 냉방', deviceImg: require('./images/devices/airconditioner.png'), networkImg: require('./images/ir2.png'), isActive: false},
@@ -22,22 +15,35 @@ const BedroomArr = [
     {name: '세탁기', onoff: '꺼짐', state: '오후 6시에 예약', deviceImg: require('./images/devices/washingmachine.png'), networkImg: require('./images/thinq.png'), isActive: false},
 ];
 
-const home = () => {    
-    const [livingroomArr, setLivingroomArr] = useState(initLivingroomArr);
 
-    const toggleDevice = (index) => {
-        setLivingroomArr(currentArr =>
-          currentArr.map((item, i) => {
-            if (i === index) {
-              return {
-                ...item,
-                onoff: item.onoff === '켜짐' ? '꺼짐' : '켜짐',
-                isActive: !item.isActive,
-              };
-            }
-            return item;
-          }),
-        );
+const prototypeimg = [require('./images/thinq.png'), require('./images/matter2.png'), require('./images/ir2.png')];
+const iconimge = [require('./images/devices/light.png'), require('./images/devices/airconditioner.png'), require('./images/devices/tv.png'), require('./images/devices/airpurifier.png'), 
+require('./images/devices/winecellar.png'), require('./images/devices/vaccumcleaner.png'), require('./images/devices/washingmachine.png')];
+
+
+const home = () => {    
+    const [livingroomArr, setLivingroomArr] = useState([]);
+
+    const getDevices = () => {
+        Axios.get('http://127.0.0.1:5000/home')
+        .then(res => {
+            setLivingroomArr(res.data);
+        })
+        .catch(error => console.log(error));
+    };
+
+    useEffect(() => {
+        getDevices();
+    }, []);
+
+
+    const toggleDevice = (id) => {
+        Axios.post(`http://127.0.0.1:5000/togglepower/${id}`)
+        .then(res => {
+            setLivingroomArr(res.data);
+            console.log(res.data);
+        })
+        .catch(error => console.log(error));
       };
 
     return (
@@ -85,13 +91,13 @@ const home = () => {
                     <Text style={styles.roomName}>거실 - COVER</Text>
                     <View style={styles.coverRoomContainer}>
                         {livingroomArr.map((item, index) => (
-                            <Pressable key={index} onPress={() => toggleDevice(index)}>
+                            <Pressable key={item.id} onPress={() => toggleDevice(item.id)}>
                                 <View style={[styles.deviceBlock, item.isActive ? styles.activeDevice : styles.inactiveDevice]}>
-                                    <Image style={styles.deviceImage} source={item.deviceImg}/>
+                                    <Image style={styles.deviceImage} source={iconimge[item.deviceImg]}/>
                                     <Text style={styles.deviceNameText}>{item.name}</Text>
                                     <Text style={styles.deviceOnOffText}>{item.onoff}</Text>
                                     <Text style={styles.deviceStateText}>{item.state}</Text>
-                                    <Image style={styles.networkImage} source={item.networkImg} />
+                                    <Image style={styles.networkImage} source={prototypeimg[item.networkImg]} />
                                 </View>
                             </Pressable>
                         ))}
@@ -121,15 +127,6 @@ const home = () => {
                     </View>
                 </View>
             </ScrollView>
-            
-            
-{/* 
-            <Link href='/profile?user=myamya'>Go to profile</Link>
-
-            <Link href={{
-                pathname: '/profile',
-                params: {name: "jina"}
-            }}>Go to the profile</Link> */}
         </View>
     )
 }
