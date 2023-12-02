@@ -22,7 +22,7 @@ const BedroomArr = [
     {name: '세탁기', onoff: '꺼짐', state: '오후 6시에 예약', deviceImg: require('./images/devices/washingmachine.png'), networkImg: require('./images/thinq.png'), isActive: false},
 ];
 
-const home = () => {
+const home = () => {    
     const [livingroomArr, setLivingroomArr] = useState(initLivingroomArr);
 
     const toggleDevice = (index) => {
@@ -107,7 +107,7 @@ const home = () => {
                     <Text style={styles.roomName}>안방</Text>
                     <View style={styles.coverRoomContainer}>
                         {BedroomArr.map((item, index) => (
-                            <View style={[styles.deviceBlock, item.isActive ? styles.activeDevice : styles.inactiveDevice]}>
+                            <View key={index} style={[styles.deviceBlock, item.isActive ? styles.activeDevice : styles.inactiveDevice]}>
                                 <Image style={styles.deviceImage} source={item.deviceImg}/>
                                 <Text style={styles.deviceNameText}>{item.name}</Text>
                                 <Text style={styles.deviceOnOffText}>{item.onoff}</Text>
@@ -282,6 +282,9 @@ const SwiperStyles = StyleSheet.create({
         shadowOffset:  {width: 0, height: 4},
         marginLeft: 10,
         marginTop: 10
+    },
+    coverRegisterButton: {
+        fontSize: 13
     },
     pressedItem: {
         opacity: 0.7

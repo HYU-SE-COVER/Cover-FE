@@ -58,6 +58,13 @@ function IRremote () {
         };
     }, [isBlinking]);
 
+    function goToHome() {
+        while (router.canGoBack()) {
+            router.back();
+        }
+        router.replace('/home');
+    }
+
 
     return (
         <View style={styles.container}>
@@ -70,12 +77,20 @@ function IRremote () {
                 <Text style={styles.orderText}>2. 리모컨과 LG COVER 사이에 장애물이 없게 해주세요.</Text>
             </View>
 
-            <Pressable style={({pressed}) => [btnStyles.matchingButton, pressed && btnStyles.pressedItem]}
+            {!isMatching && 
+            (<Pressable style={({pressed}) => [btnStyles.matchingButton, pressed && btnStyles.pressedItem]}
                 onPress={startMatching}>
                 <View>
                     <Text style={btnStyles.btnText}>매칭시작</Text>
                 </View>
-            </Pressable>
+            </Pressable>)}
+            {isMatching && 
+            (<Pressable style={({pressed}) => [btnStyles.matchingButton, pressed && btnStyles.pressedItem]}
+                onPress={goToHome}>
+                <View>
+                    <Text style={btnStyles.btnText}>등록 완료</Text>
+                </View>
+            </Pressable>)}
 
             {startedMatching && 
             (<View style={loadingCircle.container}>
@@ -166,7 +181,7 @@ const btnStyles = StyleSheet.create({
         marginTop: 12,
         marginBottom: 8,
         alignItems: 'center',
-        padding: 13
+        padding: 10
     },
     pressedItem: {
         opacity: 0.7
@@ -174,7 +189,7 @@ const btnStyles = StyleSheet.create({
     btnText: {
         fontSize: 14,
         fontWeight: '600',
-        
+        marginTop: 3
     }
 });
 
@@ -263,13 +278,14 @@ const controllerOptions = StyleSheet.create({
         backgroundColor: 'rgba(58, 117, 230, 0.15)',
         borderRadius: 20,
         marginBottom: 10,
-        padding: 13,
+        padding: 10,
         alignItems: 'center',
         justifyContent: 'center'
     },
     optiontext: {
         fontSize: 14,
-        fontWeight: '600'
+        fontWeight: '600',
+        marginTop: 3
     },
     
 });

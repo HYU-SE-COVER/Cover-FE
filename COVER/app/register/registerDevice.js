@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View, Image } from 'react-native';
+import { Pressable, StyleSheet, Text, View, Image, Button } from 'react-native';
 import {React, useState, useEffect} from 'react';
 import { Link, useRouter, useLocalSearchParams, Stack } from 'expo-router';
 import {BarCodeScanner} from 'expo-barcode-scanner';
@@ -20,7 +20,7 @@ function RegisterDevice () {
 
     const handleBarCodeScanned = ({ type, data }) => {
         setScanned(true);
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+        alert(`Bar code with type ${type} and data ${data} has been scanned!`); // 아래 제품이 맞나요?
     };
 
     if (hasPermission === null) {
