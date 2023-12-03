@@ -27,7 +27,7 @@ const home = () => {
     const [livingroomArr, setLivingroomArr] = useState([]);
 
     const getDevices = () => {
-        Axios.get('http://127.0.0.1:5000/home')
+        Axios.get('http://192.168.35.239:5000/home')
         .then(res => {
             setLivingroomArr(res.data);
         })
@@ -40,7 +40,7 @@ const home = () => {
 
 
     const toggleDevice = (id) => {
-        Axios.post(`http://127.0.0.1:5000/togglepower/${id}`)
+        Axios.post(`http://192.168.35.239:5000/togglepower/${id}`)
         .then(res => {
             setLivingroomArr(res.data);
             console.log(res.data);

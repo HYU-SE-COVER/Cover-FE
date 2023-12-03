@@ -64,7 +64,7 @@ function IRremote () {
     function goToHome(params) {
         let deviceTypeNum;
         if (params.deviceType == "에어컨") deviceTypeNum = 1;
-        Axios.post(`http://127.0.0.1:5000/registerdevice/${deviceTypeNum}`)
+        Axios.post(`http://192.168.35.239:5000/registerdevice/${deviceTypeNum}`)
         .then(res => {
             while (router.canGoBack()) {
                 router.back();

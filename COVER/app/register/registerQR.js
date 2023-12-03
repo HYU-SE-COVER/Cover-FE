@@ -7,7 +7,7 @@ function RegisterQR () {
     const router = useRouter();
 
     const addDevice = () => {
-        Axios.post(`http://127.0.0.1:5000/registerdevice/4`)
+        Axios.post(`http://192.168.35.239:5000/registerdevice/4`)
         .then(res => {
             while (router.canGoBack()) {
                 router.back();

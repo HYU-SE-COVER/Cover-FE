@@ -11,7 +11,7 @@ const NavigationSwiper = () => {
                 <View>
                     <Text style={SwiperStyles.swiperText}>COVER를 등록해주세요.</Text>
                     <Pressable style={({pressed}) => [SwiperStyles.coverRegisterButtonContainer, pressed && SwiperStyles.pressedItem]}
-                        onPress={() => router.push('/register/registerDevice')}>
+                        onPress={() => router.push('/register/RegisterDevice')}>
                         <View>
                             <Text style={SwiperStyles.coverRegisterButton}>제품 등록하기</Text>
                         </View>
@@ -20,7 +20,7 @@ const NavigationSwiper = () => {
                 <View>
                     <Text style={SwiperStyles.swiperText}>Apple Home에 한 번에 연결해보세요.</Text>
                     <Pressable style={({pressed}) => [SwiperStyles.coverRegisterButtonContainer, pressed && SwiperStyles.pressedItem]}
-                        onPress={() => router.push('./register/applehome')}>
+                        onPress={() => router.push('./register/Applehome')}>
                         <View>
                             <Text style={SwiperStyles.coverRegisterButton}>한 번에 연결</Text>
                         </View>

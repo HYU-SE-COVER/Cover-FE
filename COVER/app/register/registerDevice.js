@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text, View, Image, Button } from 'react-native';
 import {React, useState, useEffect} from 'react';
 import { Link, useRouter, useLocalSearchParams, Stack } from 'expo-router';
 import {BarCodeScanner} from 'expo-barcode-scanner';
+import Axios from 'axios';
 
 function RegisterDevice () {
     const router = useRouter();
@@ -20,8 +21,23 @@ function RegisterDevice () {
 
     const handleBarCodeScanned = ({ type, data }) => {
         setScanned(true);
-        router.push('/register/RegisterQR');
+        // 
         // alert(`Bar code with type ${type} and data ${data} has been scanned!`); // 아래 제품이 맞나요?
+        if (data == "http://thinq.link/QR1?s=309RGLN00840&m=W0082GTB.AKOR") {
+            setScanned(false);
+            router.push('/register/RegisterQR');
+        }
+        else {
+            Axios.post(`http://192.168.35.239:5000/registerdevice/0`)
+            .then(res => {
+                setScanned(false);
+                while (router.canGoBack()) {
+                    router.back();
+                }
+                router.replace('/Home');
+            })
+            .catch(error => console.log(error));
+        }
 
     };
 
