@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View, TextInput, ActivityIndicator, Image } from 'react-native';
 import {React, useState, useEffect} from 'react';
 import { Link, useRouter, useLocalSearchParams, Stack } from 'expo-router';
+import Axios from 'axios';
 
 function IRremote () {
     const router = useRouter();
@@ -12,6 +13,8 @@ function IRremote () {
     function startMatching() {
         setStartedMatching(true);
     }
+
+    const params = useLocalSearchParams();
 
     useEffect(() => {
         let timer;
@@ -58,11 +61,18 @@ function IRremote () {
         };
     }, [isBlinking]);
 
-    function goToHome() {
-        while (router.canGoBack()) {
-            router.back();
-        }
-        router.replace('/home');
+    function goToHome(params) {
+        let deviceTypeNum;
+        if (params.deviceType == "에어컨") deviceTypeNum = 1;
+        Axios.post(`http://127.0.0.1:5000/registerdevice/${deviceTypeNum}`)
+        .then(res => {
+            while (router.canGoBack()) {
+                router.back();
+            }
+            router.replace('/Home');
+        })
+        .catch(error => console.log(error));
+
     }
 
 
@@ -75,6 +85,9 @@ function IRremote () {
             <View>
                 <Text style={styles.orderText}>1. IR 기기의 리모컨을 LG COVER 근처에 둡니다.</Text>
                 <Text style={styles.orderText}>2. 리모컨과 LG COVER 사이에 장애물이 없게 해주세요.</Text>
+                {isMatching && (
+                    <Text style={styles.orderText}>3. 신호를 모두 등록 후, 등록 완료 버튼을 누르세요. {'\n'}    기기 등록이 완료됩니다.</Text>
+                )}
             </View>
 
             {!isMatching && 
@@ -86,7 +99,7 @@ function IRremote () {
             </Pressable>)}
             {isMatching && 
             (<Pressable style={({pressed}) => [btnStyles.matchingButton, pressed && btnStyles.pressedItem]}
-                onPress={goToHome}>
+                onPress={() => {goToHome(params)}}>
                 <View>
                     <Text style={btnStyles.btnText}>등록 완료</Text>
                 </View>
@@ -127,12 +140,12 @@ function IRremote () {
                     <Pressable onPress={ReceiveSignal} style={({pressed}) => [{}, pressed && controllerStyles.pressedItem]}>
                         <View style={controllerStyles.controllerBtn}><Text style={controllerStyles.controllerBtnText}>+</Text></View>
                     </Pressable>
-                    <View style={controllerStyles.controllerTextContainer}><Text style={controllerStyles.controllerBtnText}>밝기</Text></View>
+                    <View style={controllerStyles.controllerTextContainer}><Text style={controllerStyles.controllerBtnText}>온도</Text></View>
                     <Pressable onPress={ReceiveSignal} style={({pressed}) => [{}, pressed && controllerStyles.pressedItem]}>
                         <View style={controllerStyles.controllerBtn}><Text style={controllerStyles.controllerBtnText}>-</Text></View>
                     </Pressable>
                 </View>
-                <View style={controllerStyles.btnContainer}>
+                {/* <View style={controllerStyles.btnContainer}>
                     <Pressable onPress={ReceiveSignal} style={({pressed}) => [{}, pressed && controllerStyles.pressedItem]}>
                         <View style={controllerStyles.controllerBtn}><Text style={controllerStyles.controllerBtnText}>+</Text></View>
                     </Pressable>
@@ -140,7 +153,7 @@ function IRremote () {
                     <Pressable onPress={ReceiveSignal} style={({pressed}) => [{}, pressed && controllerStyles.pressedItem]}>
                         <View style={controllerStyles.controllerBtn}><Text style={controllerStyles.controllerBtnText}>-</Text></View>
                     </Pressable>
-                </View>
+                </View> */}
                 <View style={controllerStyles.btnContainer}>
                     <View style={controllerStyles.controllerBtn}><Image source={require('./../images/etc/option1.png')} style={controllerStyles.img}/></View>
                     <View style={controllerStyles.controllerBtn}><Image source={require('./../images/etc/option2.png')} style={controllerStyles.img}/></View>
@@ -196,7 +209,7 @@ const btnStyles = StyleSheet.create({
 const controllerStyles = StyleSheet.create({
     controllerContainer: {
         width: '100%',
-        height: 566,
+        height: 480,
         borderRadius: 15,
         backgroundColor: 'rgba(58, 117, 230, 0.15)',
         marginTop: 15,
@@ -209,7 +222,7 @@ const controllerStyles = StyleSheet.create({
         width: 15,
         borderRadius: 7.5,
         // backgroundColor: 'rgba(213, 38, 38, 0.6)',
-        marginBottom: 40
+        marginBottom: 25
     },
     btnContainer: {
         width: '100%',

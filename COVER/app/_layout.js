@@ -11,8 +11,8 @@ export default function Layout() {
             headerBackTitleVisible: false
         }}>
             <Stack.Screen name='index' options={{headerShown: false}}/> 
-            <Stack.Screen name='auth/login' options={{headerShown: false}}/> 
-            <Stack.Screen name='home' options={{headerShown: false}}/> 
+            <Stack.Screen name='auth/Login' options={{headerShown: false}}/> 
+            <Stack.Screen name='Home' options={{headerShown: false}}/> 
 
         </Stack>
     )

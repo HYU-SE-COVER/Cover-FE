@@ -7,20 +7,16 @@ function RegisterQR () {
     const router = useRouter();
 
     const addDevice = () => {
-        Axios.post(`http://127.0.0.1:5000/registerdevice/winecellar`)
+        Axios.post(`http://127.0.0.1:5000/registerdevice/4`)
         .then(res => {
             while (router.canGoBack()) {
                 router.back();
             }
-            router.replace('/home');
+            router.replace('/Home');
         })
         .catch(error => console.log(error));
     }
     
-
-    const tempfunc = () => {
-        console.log('router working');
-    };
 
     return (
         <View style={styles.container}>

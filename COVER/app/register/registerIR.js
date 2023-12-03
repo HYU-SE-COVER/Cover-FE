@@ -26,7 +26,7 @@ function RegisterIR () {
                 options={{title: '기기 선택'}}
             />
 
-            <Pressable onPress={() => router.push('/register/registerLGdb')} style={nextBtn.otherOptionsBtn}>
+            <Pressable onPress={() => router.push('/register/RegisterLGdb')} style={nextBtn.otherOptionsBtn}>
                 <View style={nextBtn.otherOptionsContainer}>
                     <Image source={require('../images/devices/remotecontroller.png')} style={nextBtn.remotecontrollerImg}/>
                     <Text style={nextBtn.btnMainText}>LG 리모컨 설정 가져오기</Text>
@@ -40,7 +40,7 @@ function RegisterIR () {
                 <View style={styles.optionItemContainer}>
                     {optionsArr.map((item, index) => (
                         <View key={index}>
-                            <Pressable onPress={() => router.push('/register/IRremote')} style={({pressed}) => [{}, pressed && styles.pressedItem]}>
+                            <Pressable onPress={() => router.push({pathname: '/register/IRremote', params: {deviceType: item.name}})} style={({pressed}) => [{}, pressed && styles.pressedItem]}>
                                 <View style={styles.deviceBlock}>
                                     <Image style={styles.deviceImage} source={item.img} />
                                     <Text style={styles.deviceNameText}>{item.name}</Text>

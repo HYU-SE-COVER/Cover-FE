@@ -33,14 +33,14 @@ function Login() {
                     <TextInput secureTextEntry={true} style={styles.textInput} placeholder='비밀번호를 입력해 주세요'/>
             </View>
             <Pressable style={({pressed}) => [styles.loginButton, pressed && styles.pressedItem]}
-            onPress={() => routing.replace('/home')}>
+            onPress={() => routing.replace('/Home')}>
                 <View>
                     <Text style={styles.loginText}>로그인</Text>
                 </View>
             </Pressable>
 
-            <Link href='/auth/findIDpwd' style={styles.authLinks}>아이디 찾기 / 비밀번호 재설정</Link>
-            <Link href='/auth/createAccount' style={styles.authLinks}>회원가입</Link>
+            <Link href='/auth/FindIDpwd' style={styles.authLinks}>아이디 찾기 / 비밀번호 재설정</Link>
+            <Link href='/auth/CreateAccount' style={styles.authLinks}>회원가입</Link>
 
             <View style={styles.partitionContainer}>
                 <View style={styles.partitionLine}></View>
@@ -48,7 +48,7 @@ function Login() {
             </View>
 
             <Pressable style={({pressed}) => [styles.SNSloginButton, pressed && styles.pressedItem]}
-            onPress={() => routing.push('/auth/createAccount')}>
+            onPress={() => routing.push('/auth/CreateAccount')}>
                 <View>
                     <Text style={styles.SNSloginText}>SNS 로그인</Text>
                 </View>

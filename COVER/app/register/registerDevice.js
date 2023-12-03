@@ -20,7 +20,7 @@ function RegisterDevice () {
 
     const handleBarCodeScanned = ({ type, data }) => {
         setScanned(true);
-        router.push('/register/registerQR');
+        router.push('/register/RegisterQR');
         // alert(`Bar code with type ${type} and data ${data} has been scanned!`); // 아래 제품이 맞나요?
 
     };
@@ -66,7 +66,7 @@ function RegisterDevice () {
                 </View>
 
                 <Pressable style={({pressed}) => [styles.othersBtn, pressed && styles.pressedItem]}
-                    onPress={() => router.push('/register/registerIR')}>
+                    onPress={() => router.push('/register/RegisterIR')}>
                     <View>
                         <Text style={styles.othersBtnText}>QR을 찾을 수 없나요?</Text>
                     </View>
@@ -75,7 +75,7 @@ function RegisterDevice () {
                 {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
             </View>
 
-            <Pressable onPress={() => router.push('/register/registerIR')} style={({pressed}) => [nextBtn.otherOptionsBtn, pressed && nextBtn.pressedItem]}>
+            <Pressable onPress={() => router.push('/register/RegisterIR')} style={({pressed}) => [nextBtn.otherOptionsBtn, pressed && nextBtn.pressedItem]}>
                 <View>
                     <Text style={nextBtn.btnMainText}>다른 방법으로 추가할래요.</Text>
                     <Text style={nextBtn.btnSubText}>제품을 수동으로 매칭하여 직접 추가할 수 있어요.</Text>

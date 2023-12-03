@@ -41,7 +41,7 @@ const index = () => {
                 <Text style={styles.cover}>COVER</Text>
             </View>
             {!logoVisible && (
-                <Redirect href='auth/login'/>
+                <Redirect href='auth/Login'/>
             )}
         </>
     )

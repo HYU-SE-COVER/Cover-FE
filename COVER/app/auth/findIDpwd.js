@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-const findIDpwd = () => {
+const FindIDpwd = () => {
 
     return (
         <View>
@@ -9,5 +9,5 @@ const findIDpwd = () => {
     )
 }
 
-export default findIDpwd;
+export default FindIDpwd;
 

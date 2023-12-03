@@ -4,6 +4,8 @@ import { Link, router } from 'expo-router';
 import Swiper from 'react-native-swiper';
 import Axios from 'axios';
 
+import MenuBtn from '../components/MenuBtn';
+import NavigationSwiper from '../components/NavigationSwiper';
 
 const BedroomArr = [
     {name: '전등', onoff: '꺼짐', state: '', deviceImg: require('./images/devices/light.png'), networkImg: require('./images/matter2.png'), isActive: false},
@@ -48,42 +50,10 @@ const home = () => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.hamburgerBtn}>
-                <View style={styles.hamburgerBtnLine}></View>
-                <View style={styles.hamburgerBtnLine}></View>
-                <View style={styles.hamburgerBtnLine}></View>
-            </View>
+            <MenuBtn/>
 
             <ScrollView>
-                <Swiper style={SwiperStyles.swiper} dotStyle={SwiperStyles.dotStyle} activeDotStyle={SwiperStyles.activeDotStyle}>
-                    <View>
-                        <Text style={SwiperStyles.swiperText}>COVER를 등록해주세요.</Text>
-                        <Pressable style={({pressed}) => [SwiperStyles.coverRegisterButtonContainer, pressed && SwiperStyles.pressedItem]}
-                            onPress={() => router.push('/register/registerDevice')}>
-                            <View>
-                                <Text style={SwiperStyles.coverRegisterButton}>제품 등록하기</Text>
-                            </View>
-                        </Pressable>
-                    </View>
-                    <View>
-                        <Text style={SwiperStyles.swiperText}>Apple Home에 한 번에 연결해보세요.</Text>
-                        <Pressable style={({pressed}) => [SwiperStyles.coverRegisterButtonContainer, pressed && SwiperStyles.pressedItem]}
-                            onPress={() => router.push('./register/applehome')}>
-                            <View>
-                                <Text style={SwiperStyles.coverRegisterButton}>한 번에 연결</Text>
-                            </View>
-                        </Pressable>
-                    </View>
-                    <View>
-                        <Text></Text>
-                    </View>
-                    <View>
-                        <Text></Text>
-                    </View>
-                    <View>
-                        <Text></Text>
-                    </View>
-                </Swiper>
+                <NavigationSwiper/>
                 <View >
                     <Text style={styles.userHome}>송우정 홈</Text>
                 </View>
@@ -101,8 +71,8 @@ const home = () => {
                                 </View>
                             </Pressable>
                         ))}
-                        <Pressable style={({pressed}) => [{}, pressed && SwiperStyles.pressedItem]}
-                            onPress={() => router.push('./register/registerDevice')}>
+                        <Pressable style={({pressed}) => [{}, pressed && styles.pressedItem]}
+                            onPress={() => router.push('./register/RegisterDevice')}>
                             <View key={"addDeviceBlock1"} style={[styles.deviceBlock, styles.addDeviceBlock]}>
                                 <Image source={require('./images/devices/plus.png')} style={styles.plus}/>
                             </View>
@@ -131,7 +101,7 @@ const home = () => {
     )
 }
 
-export default home
+export default home;
 
 const styles = StyleSheet.create({
     container: {
@@ -140,20 +110,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         padding: 20,
     },
-    hamburgerBtn: {
-        width: 20,
-        height: 12,
-        marginTop: 60,
-        marginBottom: 20,
-        justifyContent: 'space-between',
-    },
-    hamburgerBtnLine: {
-        width: 20,
-        height: 0,
-        borderTopWidth: 2,
-        borderColor: 'black',
-    },
-    
     userHome: {
         fontSize: 17,
         fontWeight: '700',
@@ -245,43 +201,6 @@ const styles = StyleSheet.create({
     plus: {
         height: 60,
         width: 60
-    }
-});
-
-const SwiperStyles = StyleSheet.create({
-    swiper: {
-        height: 110,
-        marginTop: 20,
-        borderBottomWidth: 1,
-    },
-    dotStyle: {
-        margin: 5,
-        marginBottom: -20
-    },
-    activeDotStyle: {
-        margin: 5,
-        marginBottom: -20
-    },
-    swiperText: {
-        fontSize: 14,
-        fontWeight: '400',
-        marginLeft: 10
-    },
-    coverRegisterButtonContainer: {
-        width: 100,
-        height: 20,
-        backgroundColor: 'white',
-        borderRadius: 30,
-        alignItems: 'center',
-        justifyContent: 'center',
-        shadowColor: 'black',
-        shadowOpacity: 0.25,
-        shadowOffset:  {width: 0, height: 4},
-        marginLeft: 10,
-        marginTop: 10
-    },
-    coverRegisterButton: {
-        fontSize: 13
     },
     pressedItem: {
         opacity: 0.7
