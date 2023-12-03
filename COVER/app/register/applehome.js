@@ -1,19 +1,26 @@
 import { Pressable, StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import { Link, router, useLocalSearchParam, Stack } from 'expo-router';
+import Axios from 'axios';
+
+const prototypeimg = [require('./../images/thinq.png'), require('./../images/matter2.png'), require('./../images/ir2.png')];
+const iconimge = [require('./../images/devices/light.png'), require('./../images/devices/airconditioner.png'), require('./../images/devices/tv.png'), require('./../images/devices/airpurifier.png'), 
+require('./../images/devices/winecellar.png'), require('./../images/devices/vaccumcleaner.png'), require('./../images/devices/washingmachine.png')];
 
 const Applehome = () => {
+    const [livingroomArr, setLivingroomArr] = useState([]);
 
-    const livingroomArr = [
-        {name: '전등', onoff: '꺼짐', state: '', deviceImg: require('./../images/devices/light.png'), networkImg: require('./../images/matter2.png')},
-        {name: '에어컨', onoff: '켜짐', state: '23°C 냉방', deviceImg: require('./../images/devices/airconditioner.png'), networkImg: require('./../images/ir2.png')},
-        {name: 'TV', onoff: '꺼짐', state: 'YouTube 시청 중', deviceImg: require('./../images/devices/tv.png'), networkImg: require('./../images/matter2.png')},
-        {name: '공기청정기', onoff: '켜짐', state: '공기질 좋음', deviceImg: require('./../images/devices/airpurifier.png'), networkImg: require('./../images/thinq.png')},
-        {name: '와인 셀러', onoff: '켜짐', state: '16°C', deviceImg: require('./../images/devices/winecellar.png'), networkImg: require('./../images/matter2.png')},
-        {name: '청소기', onoff: '꺼짐', state: '충전중', deviceImg: require('./../images/devices/vaccumcleaner.png'), networkImg: require('./../images/thinq.png')},
-        {name: '세탁기', onoff: '꺼짐', state: '오후 6시에 예약', deviceImg: require('./../images/devices/washingmachine.png'), networkImg: require('./../images/thinq.png')},
+    const getDevices = () => {
+        Axios.get('http://192.168.35.239:5000/home')
+        .then(res => {
+            setLivingroomArr(res.data);
+        })
+        .catch(error => console.log(error));
+    };
 
-    ];
+    useEffect(() => {
+        getDevices();
+    }, []);
     
     return (
         <View style={styles.container}>
@@ -55,11 +62,11 @@ const Applehome = () => {
                     <View style={connectedBlock.coverRoomContainer}>
                         {livingroomArr.map((item, index) => (
                             <View key={index} style={connectedBlock.deviceBlock}>
-                                <Image style={connectedBlock.deviceImage} source={item.deviceImg}/>
+                                <Image style={connectedBlock.deviceImage} source={iconimge[item.deviceImg]}/>
                                 <Text style={connectedBlock.deviceNameText}>{item.name}</Text>
-                                <Text style={connectedBlock.deviceStateText}>{item.onoff}</Text>
+                                <Text style={connectedBlock.deviceOnOffText}>{item.onoff}</Text>
                                 <Text style={connectedBlock.deviceStateText}>{item.state}</Text>
-                                <Image style={connectedBlock.networkImage} source={item.networkImg} />
+                                <Image style={connectedBlock.networkImage} source={prototypeimg[item.networkImg]} />
                             </View>
                         ))}
                     </View>
@@ -186,12 +193,20 @@ const connectedBlock = StyleSheet.create({
         width: 180,
         height: 100,
         borderRadius: 10, 
-        backgroundColor: '#ffffff',
+        backgroundColor: 'white',
         padding: 10,
         margin: 7,
         shadowColor: 'black',
         shadowOpacity: 0.25,
         shadowOffset:  {width: 0, height: 4},
+        borderWidth: 2,
+        borderColor: 'white',
+    },
+    activeDevice: {
+        backgroundColor: 'white'
+    },
+    inactiveDevice: {
+        backgroundColor: 'rgb(210, 210, 210)'
     },
     deviceImage: {
         resizeMode: 'contain',
@@ -201,21 +216,39 @@ const connectedBlock = StyleSheet.create({
         marginBottom: 5
     },
     deviceNameText: {
+        position: 'absolute',
+        top: 40,
+        left: 10,
         fontSize: 12,
         fontWeight: '700',
         marginBottom: 4
     },
+    deviceOnOffText: {
+        position: 'absolute',
+        top: 55,
+        left: 10,
+        fontSize: 12,
+        fontWeight: '400',
+        color: 'rgba(0, 0, 0, 0.5)',
+        marginVertical: 1.5
+    },
     deviceStateText: {
+        position: 'absolute',
+        top: 69,
+        left: 10,
         fontSize: 12,
         fontWeight: '400',
         color: 'rgba(0, 0, 0, 0.5)',
         marginVertical: 1.5
     },
     networkImage: {
+        // position: 'absolute',
         resizeMode: 'contain',
         height: 20,
         width: 'auto',
-        marginTop: -15,
-        marginRight: -145,
+        // marginTop: -15,
+        // marginRight: -145,
+        marginTop: 30,
+        marginRight: -140
     },
 });

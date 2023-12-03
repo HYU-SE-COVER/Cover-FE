@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useRouter, useLocalSearchParams, Stack } from 'expo-router';
 import Axios from 'axios';
 
-function RegisterQR () {
+function RegisterThinQ () {
     const router = useRouter();
 
     const addDevice = () => {
@@ -52,7 +52,7 @@ function RegisterQR () {
     )
 }
 
-export default RegisterQR;
+export default RegisterThinQ;
 
 const styles = StyleSheet.create({
     container: {
