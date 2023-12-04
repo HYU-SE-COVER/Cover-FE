@@ -3,6 +3,8 @@ import { React, useState, useEffect } from 'react';
 import { Link, router, useLocalSearchParam, Stack } from 'expo-router';
 import Axios from 'axios';
 
+import GetURL from '../../components/GetURL';
+
 const prototypeimg = [require('./../images/thinq.png'), require('./../images/matter2.png'), require('./../images/ir2.png')];
 const iconimge = [require('./../images/devices/light.png'), require('./../images/devices/airconditioner.png'), require('./../images/devices/tv.png'), require('./../images/devices/airpurifier.png'), 
 require('./../images/devices/winecellar.png'), require('./../images/devices/vaccumcleaner.png'), require('./../images/devices/washingmachine.png')];
@@ -11,7 +13,8 @@ const Applehome = () => {
     const [livingroomArr, setLivingroomArr] = useState([]);
 
     const getDevices = () => {
-        Axios.get('http://192.168.35.239:5000/home')
+        const baseurl = GetURL();
+        Axios.get(baseurl + '/home')
         .then(res => {
             setLivingroomArr(res.data);
         })

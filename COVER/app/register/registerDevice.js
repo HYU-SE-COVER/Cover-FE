@@ -28,12 +28,8 @@ function RegisterDevice () {
             router.push('/register/RegisterThinQ');
         }
         else {
-            // Axios.post(`http://192.168.35.239:5000/registerdevice/0`)
-            // .then(res => {
-                setScanned(false);
-                router.push('/register/RegisterMatter');
-            // })
-            // .catch(error => console.log(error));
+            setScanned(false);
+            router.push('/register/RegisterMatter');
         }
 
     };

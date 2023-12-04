@@ -3,11 +3,14 @@ import React from 'react';
 import { Link, useRouter, useLocalSearchParams, Stack } from 'expo-router';
 import Axios from 'axios';
 
+import GetURL from '../../components/GetURL';
+
 function RegisterMatter () {
     const router = useRouter();
 
     const addDevice = () => {
-        Axios.post(`http://192.168.35.239:5000/registerdevice/0`)
+        const baseurl = GetURL();
+        Axios.post(baseurl + `/registerdevice/0`)
         .then(res => {
             while (router.canGoBack()) {
                 router.back();

@@ -6,6 +6,8 @@ import Axios from 'axios';
 
 import MenuBtn from '../components/MenuBtn';
 import NavigationSwiper from '../components/NavigationSwiper';
+import GetURL from '../components/GetURL';
+import ControlModal from '../components/ControlModal';
 
 const BedroomArr = [
     {name: '전등', onoff: '꺼짐', state: '', deviceImg: require('./images/devices/light.png'), networkImg: require('./images/matter2.png'), isActive: false},
@@ -25,28 +27,38 @@ require('./images/devices/winecellar.png'), require('./images/devices/vaccumclea
 
 const home = () => {    
     const [livingroomArr, setLivingroomArr] = useState([]);
-
-    const getDevices = () => {
-        Axios.get('http://192.168.35.239:5000/home')
-        .then(res => {
-            setLivingroomArr(res.data);
-        })
-        .catch(error => console.log(error));
-    };
+    const [modalIsVisible, setModalisVisible] = useState(false);
 
     useEffect(() => {
+        const getDevices = () => {
+            const baseurl = GetURL();
+            Axios.get(baseurl + '/home')
+            .then(res => {
+                setLivingroomArr(res.data);
+            })
+            .catch(error => console.log(error));
+        };
+    
         getDevices();
     }, []);
 
 
     const toggleDevice = (id) => {
-        Axios.post(`http://192.168.35.239:5000/togglepower/${id}`)
+        const baseurl = GetURL();
+        Axios.post(baseurl + `/togglepower/${id}`)
         .then(res => {
             setLivingroomArr(res.data);
             console.log(res.data);
         })
         .catch(error => console.log(error));
     };
+
+    const openControlModal = () => {
+        setModalisVisible(true);
+    }
+    const closeControlModal = () => {
+        setModalisVisible(false);
+    }
 
     return (
         <View style={styles.container}>
@@ -61,7 +73,8 @@ const home = () => {
                     <Text style={styles.roomName}>거실 - COVER</Text>
                     <View style={styles.coverRoomContainer}>
                         {livingroomArr.map((item, index) => (
-                            <Pressable key={item.id} onPress={() => toggleDevice(item.id)}>
+                            <Pressable key={item.id} onPress={() => toggleDevice(item.id)}
+                                onLongPress={openControlModal}>
                                 <View style={[styles.deviceBlock, item.isActive ? styles.activeDevice : styles.inactiveDevice]}>
                                     <Image style={styles.deviceImage} source={iconimge[item.deviceImg]}/>
                                     <Text style={styles.deviceNameText}>{item.name}</Text>
@@ -79,6 +92,9 @@ const home = () => {
                         </Pressable>
                     </View>
                 </View>
+
+                <ControlModal visible={modalIsVisible} onClose={closeControlModal}/>
+
                 <View >
                     <Text style={styles.roomName}>안방</Text>
                     <View style={styles.coverRoomContainer}>
