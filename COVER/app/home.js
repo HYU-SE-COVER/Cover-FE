@@ -56,8 +56,36 @@ const home = () => {
     const openControlModal = () => {
         setModalisVisible(true);
     }
-    const closeControlModal = () => {
+    const closeControlModal = (modalState, modalSliderValue) => {
         setModalisVisible(false);
+        // console.log("Modal State:", modalState);
+        // console.log("Modal Slider Value:", modalSliderValue);
+
+        const baseurl = GetURL();
+        const data = {
+            state: modalState,
+            sliderValue: modalSliderValue
+        };
+
+        Axios.post(baseurl + '/update/1', data)
+        .then(res => {
+            const updatedArr = livingroomArr.map(item => {
+                if (item.deviceImg === 1) {
+                    return { ...item, 
+                        onoff: res.data.onoff,
+                        isActive: res.data.isActive,
+                        state: res.data.state
+                    };
+                }
+                return item;
+            });
+        
+            setLivingroomArr(updatedArr);
+            console.log(res.data);
+        })
+        .catch(error => {
+            console.error('POST failed:', error);
+        });
     }
 
     return (
@@ -73,16 +101,33 @@ const home = () => {
                     <Text style={styles.roomName}>거실 - COVER</Text>
                     <View style={styles.coverRoomContainer}>
                         {livingroomArr.map((item, index) => (
-                            <Pressable key={item.id} onPress={() => toggleDevice(item.id)}
-                                onLongPress={openControlModal}>
-                                <View style={[styles.deviceBlock, item.isActive ? styles.activeDevice : styles.inactiveDevice]}>
-                                    <Image style={styles.deviceImage} source={iconimge[item.deviceImg]}/>
-                                    <Text style={styles.deviceNameText}>{item.name}</Text>
-                                    <Text style={styles.deviceOnOffText}>{item.onoff}</Text>
-                                    <Text style={styles.deviceStateText}>{item.state}</Text>
-                                    <Image style={styles.networkImage} source={prototypeimg[item.networkImg]} />
-                                </View>
+                            // <Pressable key={item.id} onPress={() => toggleDevice(item.id)}
+                            //     onLongPress={openControlModal}>
+                            //     <View style={[styles.deviceBlock, item.isActive ? styles.activeDevice : styles.inactiveDevice]}>
+                            //         <Image style={styles.deviceImage} source={iconimge[item.deviceImg]}/>
+                            //         <Text style={styles.deviceNameText}>{item.name}</Text>
+                            //         <Text style={styles.deviceOnOffText}>{item.onoff}</Text>
+                            //         <Text style={styles.deviceStateText}>{item.state}</Text>
+                            //         <Image style={styles.networkImage} source={prototypeimg[item.networkImg]} />
+                            //     </View>
+                            // </Pressable>
+                            <Pressable 
+                                key={item.id} 
+                                onPress={() => toggleDevice(item.id)}
+                                onLongPress={openControlModal}
+                                style={({ pressed }) => [
+                                    styles.deviceBlock, 
+                                    item.isActive ? styles.activeDevice : styles.inactiveDevice,
+                                    pressed ? styles.pressedItem : {}
+                                ]}
+                            >
+                                <Image style={styles.deviceImage} source={iconimge[item.deviceImg]}/>
+                                <Text style={styles.deviceNameText}>{item.name}</Text>
+                                <Text style={styles.deviceOnOffText}>{item.onoff}</Text>
+                                <Text style={styles.deviceStateText}>{item.state}</Text>
+                                <Image style={styles.networkImage} source={prototypeimg[item.networkImg]} />
                             </Pressable>
+
                         ))}
                         <Pressable style={({pressed}) => [{}, pressed && styles.pressedItem]}
                             onPress={() => router.push('./register/RegisterDevice')}>

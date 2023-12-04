@@ -9,22 +9,27 @@ function ControlModal(props) {
     const [state, setState] = useState(false);
     const [sliderValue, setSliderValue] = useState(26);
 
-    const getDeviceInfo = () => {
-        const baseurl = GetURL();
-        Axios.get(baseurl + '/get/1')
-        .then(res => {
-            console.log(res.data);
-            const str = res.data.state;
-            const match = str.match(/\d+/);
-            const temperature = parseInt(match[0], 10);
-            setSliderValue(temperature);
-        })
-        .catch(error => console.log(error));
-    };
     useEffect(() => {
+        const getDeviceInfo = () => {
+            const baseurl = GetURL();
+            Axios.get(baseurl + '/get/1')
+            .then(res => {
+                console.log(res.data);
+                const str = res.data.state;
+                const match = str.match(/\d+/);
+                const temperature = parseInt(match[0], 10);
+                setSliderValue(temperature);
+                setState(res.data.isActive);
+            })
+            .catch(error => console.log(error));
+        };
+
         getDeviceInfo();
     }, []);
 
+    const handleClose = () => {
+        props.onClose(state, sliderValue);
+    };
 
     return (
         <Modal visible={props.visible} transparent={true} animationType="slide">
@@ -65,7 +70,7 @@ function ControlModal(props) {
                                 />
                             </View>
 
-                            <Pressable onPress={props.onClose}>
+                            <Pressable onPress={handleClose}>
                                 <View style={styles.close}><Text style={styles.closeText}>Close</Text></View>
                             </Pressable>
                     </View>
