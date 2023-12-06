@@ -3,11 +3,11 @@ import { React, useState, useEffect } from 'react';
 import { Link, router, useLocalSearchParam, Stack } from 'expo-router';
 import Axios from 'axios';
 
-import GetURL from '../../components/GetURL';
+import GetURL from './../components/GetURL';
 
-const prototypeimg = [require('./../images/thinq.png'), require('./../images/matter2.png'), require('./../images/ir2.png')];
-const iconimge = [require('./../images/devices/light.png'), require('./../images/devices/airconditioner.png'), require('./../images/devices/tv.png'), require('./../images/devices/airpurifier.png'), 
-require('./../images/devices/winecellar.png'), require('./../images/devices/vaccumcleaner.png'), require('./../images/devices/washingmachine.png')];
+const prototypeimg = [require('./../../assets/images/thinq.png'), require('./../../assets/images/matter2.png'), require('./../../assets/images/ir2.png')];
+const iconimge = [require('./../../assets/images/devices/light.png'), require('./../../assets/images/devices/airconditioner.png'), require('./../../assets/images/devices/tv.png'), require('./../../assets/images/devices/airpurifier.png'), 
+require('./../../assets/images/devices/winecellar.png'), require('./../../assets/images/devices/vaccumcleaner.png'), require('./../../assets/images/devices/washingmachine.png')];
 
 const Applehome = () => {
     const [livingroomArr, setLivingroomArr] = useState([]);
@@ -35,20 +35,20 @@ const Applehome = () => {
                 
                 <View style={qrBlock.container}>
                     <View style={qrBlock.header}>
-                        <Image source={require('./../images/matter2.png')} style={qrBlock.headerImg}/>
+                        <Image source={require('./../../assets/images/matter2.png')} style={qrBlock.headerImg}/>
                         <Text style={qrBlock.headerText}>Matter 자동 연결하기</Text>
                         <Text style={qrBlock.headerArrow}>{'>'}</Text>
                     </View>
                     <View style={qrBlock.headerLine}></View>
-                    <View style={qrBlock.qrContainer}><Image source={require('./../images/qrcode.png')} style={qrBlock.qrcode}/></View>
+                    <View style={qrBlock.qrContainer}><Image source={require('./../../assets/images/qrcode.png')} style={qrBlock.qrcode}/></View>
                     <View style={qrBlock.codeNumContainer}><Text style={qrBlock.codeNum}>0016-475-8724</Text></View>
                     <View style={qrBlock.saveContainer}>
                         <View style={qrBlock.saveCopyContainer}>
-                            <Image source={require('./../images/etc/saveQR.png')} style={qrBlock.saveCopyImg}/>
+                            <Image source={require('./../../assets/images/etc/saveQR.png')} style={qrBlock.saveCopyImg}/>
                             <Text style={qrBlock.saveCopyText}>QR 저장</Text>
                         </View>
                         <View style={qrBlock.saveCopyContainer}>
-                        <Image source={require('./../images/etc/copyCode.png')} style={qrBlock.saveCopyImg}/>
+                        <Image source={require('./../../assets/images/etc/copyCode.png')} style={qrBlock.saveCopyImg}/>
                             <Text style={qrBlock.saveCopyText}>코드 복사</Text>
                         </View>
                     </View>
@@ -56,7 +56,7 @@ const Applehome = () => {
 
                 <View style={connectedBlock.container}>
                     <View style={connectedBlock.header}>
-                        <Image source={require('./../images/matter2.png')} style={qrBlock.headerImg}/>
+                        <Image source={require('./../../assets/images/matter2.png')} style={qrBlock.headerImg}/>
                         <Text style={qrBlock.headerText}>거실 COVER에 연결된 기기</Text>
                         <Text style={connectedBlock.headerArrow}>{'>'}</Text>
                     </View>

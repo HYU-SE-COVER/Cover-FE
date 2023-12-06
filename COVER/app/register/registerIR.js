@@ -6,18 +6,18 @@ function RegisterIR () {
     const router = useRouter();
 
     const optionsArr = [
-        {name: "에어컨", img: require('../images/devices/airconditioner.png')},
-        {name: "전등", img: require('../images/devices/light.png')},
-        {name: "공기청정기", img: require('../images/devices/airpurifier.png')},
-        {name: "TV", img: require('../images/devices/tv.png')},
-        {name: "청소기", img: require('../images/devices/vaccumcleaner.png')},
-        {name: "세탁기", img: require('../images/devices/washingmachine.png')},
-        {name: "프로젝터", img: require('../images/devices/projecter.png')},
-        {name: "스피커", img: require('../images/devices/speaker.png')},
-        {name: "카메라", img: require('../images/devices/camera.png')},
-        {name: "로봇 청소기", img: require('../images/devices/robotcleaner.png')},
-        {name: "건조기", img: require('../images/devices/dryer.png')},
-        {name: "기타", img: require('../images/devices/else.png')},
+        {name: "에어컨", img: require('../../assets/images/devices/airconditioner.png')},
+        {name: "전등", img: require('../../assets/images/devices/light.png')},
+        {name: "공기청정기", img: require('../../assets/images/devices/airpurifier.png')},
+        {name: "TV", img: require('../../assets/images/devices/tv.png')},
+        {name: "청소기", img: require('../../assets/images/devices/vaccumcleaner.png')},
+        {name: "세탁기", img: require('../../assets/images/devices/washingmachine.png')},
+        {name: "프로젝터", img: require('../../assets/images/devices/projecter.png')},
+        {name: "스피커", img: require('../../assets/images/devices/speaker.png')},
+        {name: "카메라", img: require('../../assets/images/devices/camera.png')},
+        {name: "로봇 청소기", img: require('../../assets/images/devices/robotcleaner.png')},
+        {name: "건조기", img: require('../../assets/images/devices/dryer.png')},
+        {name: "기타", img: require('../../assets/images/devices/else.png')},
     ];
     
     return (
@@ -28,7 +28,7 @@ function RegisterIR () {
 
             <Pressable onPress={() => router.push('/register/RegisterLGdb')} style={nextBtn.otherOptionsBtn}>
                 <View style={nextBtn.otherOptionsContainer}>
-                    <Image source={require('../images/devices/remotecontroller.png')} style={nextBtn.remotecontrollerImg}/>
+                    <Image source={require('../../assets/images/devices/remotecontroller.png')} style={nextBtn.remotecontrollerImg}/>
                     <Text style={nextBtn.btnMainText}>LG 리모컨 설정 가져오기</Text>
                 </View>
                 <View><Text style={nextBtn.arrow}>{'>'}</Text></View>

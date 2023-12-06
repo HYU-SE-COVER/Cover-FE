@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useRouter, useLocalSearchParams, Stack } from 'expo-router';
 import Axios from 'axios';
 
-import GetURL from '../../components/GetURL';
+import GetURL from './../components/GetURL';
 
 function RegisterMatter () {
     const router = useRouter();
@@ -42,7 +42,7 @@ function RegisterMatter () {
                     <Text style={deviceBlock.text}>제품을 추가할까요?</Text>
                 </View>
                 
-                <View><Image source={require('./../images/devices/light.png')} style={deviceBlock.img}/></View>
+                <View><Image source={require('./../../assets/images/devices/light.png')} style={deviceBlock.img}/></View>
                 <Pressable onPress={addDevice} style={({pressed}) => [deviceBlock.btn, pressed && styles.pressedItem]}><Text style={deviceBlock.btnText}>추가하기</Text></Pressable>
             </View>
 

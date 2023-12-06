@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput, Button, Modal, Image, Pressable, Text, Swi
 import Slider from '@react-native-community/slider';
 import Axios from 'axios';
 
-import GetURL from '../components/GetURL';
+import GetURL from './GetURL';
 
 function ControlModal(props) {
     const [state, setState] = useState(false);

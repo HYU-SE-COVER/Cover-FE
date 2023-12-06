@@ -4,25 +4,21 @@ import { Link, router } from 'expo-router';
 import Swiper from 'react-native-swiper';
 import Axios from 'axios';
 
-import MenuBtn from '../components/MenuBtn';
-import NavigationSwiper from '../components/NavigationSwiper';
-import GetURL from '../components/GetURL';
-import ControlModal from '../components/ControlModal';
+import MenuBtn from './components/MenuBtn';
+import NavigationSwiper from './components/NavigationSwiper';
+import GetURL from './components/GetURL';
+import ControlModal from './components/ControlModal';
+import DeviceBlock from './components/DeviceBlock';
 
 const BedroomArr = [
-    {name: '전등', onoff: '꺼짐', state: '', deviceImg: require('./images/devices/light.png'), networkImg: require('./images/matter2.png'), isActive: false},
-    {name: '에어컨', onoff: '꺼짐', state: '23°C 냉방', deviceImg: require('./images/devices/airconditioner.png'), networkImg: require('./images/ir2.png'), isActive: false},
-    {name: 'TV', onoff: '꺼짐', state: 'YouTube 시청 중', deviceImg: require('./images/devices/tv.png'), networkImg: require('./images/matter2.png'), isActive: false},
-    {name: '공기청정기', onoff: '켜짐', state: '공기질 좋음', deviceImg: require('./images/devices/airpurifier.png'), networkImg: require('./images/thinq.png'), isActive: true},
-    {name: '와인 셀러', onoff: '켜짐', state: '16°C', deviceImg: require('./images/devices/winecellar.png'), networkImg: require('./images/thinq.png'), isActive: true},
-    {name: '청소기', onoff: '꺼짐', state: '충전중', deviceImg: require('./images/devices/vaccumcleaner.png'), networkImg: require('./images/thinq.png'), isActive: false},
-    {name: '세탁기', onoff: '꺼짐', state: '오후 6시에 예약', deviceImg: require('./images/devices/washingmachine.png'), networkImg: require('./images/thinq.png'), isActive: false},
+    {name: '전등', onoff: '꺼짐', state: '', deviceImg: 0, networkImg: 1, isActive: false},
+    {name: '에어컨', onoff: '꺼짐', state: '23°C 냉방', deviceImg: 1, networkImg: 2, isActive: false},
+    {name: 'TV', onoff: '꺼짐', state: 'YouTube 시청 중', deviceImg: 2, networkImg: 1, isActive: false},
+    {name: '공기청정기', onoff: '켜짐', state: '공기질 좋음', deviceImg: 3, networkImg: 0, isActive: true},
+    {name: '와인 셀러', onoff: '켜짐', state: '16°C', deviceImg: 4, networkImg: 0, isActive: true},
+    {name: '청소기', onoff: '꺼짐', state: '충전중', deviceImg: 5, networkImg: 0, isActive: false},
+    {name: '세탁기', onoff: '꺼짐', state: '오후 6시에 예약', deviceImg: 6, networkImg: 0, isActive: false},
 ];
-
-
-const prototypeimg = [require('./images/thinq.png'), require('./images/matter2.png'), require('./images/ir2.png')];
-const iconimge = [require('./images/devices/light.png'), require('./images/devices/airconditioner.png'), require('./images/devices/tv.png'), require('./images/devices/airpurifier.png'), 
-require('./images/devices/winecellar.png'), require('./images/devices/vaccumcleaner.png'), require('./images/devices/washingmachine.png')];
 
 
 const home = () => {    
@@ -36,7 +32,7 @@ const home = () => {
             .then(res => {
                 setLivingroomArr(res.data);
             })
-            .catch(error => console.log(error));
+            .catch("/home : getDevices : ", error => console.log(error));
         };
     
         getDevices();
@@ -50,7 +46,7 @@ const home = () => {
             setLivingroomArr(res.data);
             console.log(res.data);
         })
-        .catch(error => console.log(error));
+        .catch("/home : toggleDevice : ", error => console.log(error));
     };
 
     const openControlModal = () => {
@@ -84,7 +80,7 @@ const home = () => {
             console.log(res.data);
         })
         .catch(error => {
-            console.error('POST failed:', error);
+            console.error("/home : closeControlModal : POST failed : ", error);
         });
     }
 
@@ -101,16 +97,6 @@ const home = () => {
                     <Text style={styles.roomName}>거실 - COVER</Text>
                     <View style={styles.coverRoomContainer}>
                         {livingroomArr.map((item, index) => (
-                            // <Pressable key={item.id} onPress={() => toggleDevice(item.id)}
-                            //     onLongPress={openControlModal}>
-                            //     <View style={[styles.deviceBlock, item.isActive ? styles.activeDevice : styles.inactiveDevice]}>
-                            //         <Image style={styles.deviceImage} source={iconimge[item.deviceImg]}/>
-                            //         <Text style={styles.deviceNameText}>{item.name}</Text>
-                            //         <Text style={styles.deviceOnOffText}>{item.onoff}</Text>
-                            //         <Text style={styles.deviceStateText}>{item.state}</Text>
-                            //         <Image style={styles.networkImage} source={prototypeimg[item.networkImg]} />
-                            //     </View>
-                            // </Pressable>
                             <Pressable 
                                 key={item.id} 
                                 onPress={() => toggleDevice(item.id)}
@@ -121,18 +107,14 @@ const home = () => {
                                     pressed ? styles.pressedItem : {}
                                 ]}
                             >
-                                <Image style={styles.deviceImage} source={iconimge[item.deviceImg]}/>
-                                <Text style={styles.deviceNameText}>{item.name}</Text>
-                                <Text style={styles.deviceOnOffText}>{item.onoff}</Text>
-                                <Text style={styles.deviceStateText}>{item.state}</Text>
-                                <Image style={styles.networkImage} source={prototypeimg[item.networkImg]} />
+                                <DeviceBlock item={item}></DeviceBlock>
                             </Pressable>
 
                         ))}
                         <Pressable style={({pressed}) => [{}, pressed && styles.pressedItem]}
                             onPress={() => router.push('./register/RegisterDevice')}>
                             <View key={"addDeviceBlock1"} style={[styles.deviceBlock, styles.addDeviceBlock]}>
-                                <Image source={require('./images/devices/plus.png')} style={styles.plus}/>
+                                <Image source={require('./../assets/images/devices/plus.png')} style={styles.plus}/>
                             </View>
                         </Pressable>
                     </View>
@@ -145,15 +127,16 @@ const home = () => {
                     <View style={styles.coverRoomContainer}>
                         {BedroomArr.map((item, index) => (
                             <View key={index} style={[styles.deviceBlock, item.isActive ? styles.activeDevice : styles.inactiveDevice]}>
-                                <Image style={styles.deviceImage} source={item.deviceImg}/>
+                                {/* <Image style={styles.deviceImage} source={item.deviceImg}/>
                                 <Text style={styles.deviceNameText}>{item.name}</Text>
                                 <Text style={styles.deviceOnOffText}>{item.onoff}</Text>
                                 <Text style={styles.deviceStateText}>{item.state}</Text>
-                                <Image style={styles.networkImage} source={item.networkImg} />
+                                <Image style={styles.networkImage} source={item.networkImg} /> */}
+                                <DeviceBlock item={item}></DeviceBlock>
                             </View>
                         ))}
                         <View key={"addDeviceBlock1"} style={[styles.deviceBlock, styles.addDeviceBlock]}>
-                            <Image source={require('./images/devices/plus.png')} style={styles.plus}/>
+                            <Image source={require('./../assets/images/devices/plus.png')} style={styles.plus}/>
                         </View>
                     </View>
                 </View>

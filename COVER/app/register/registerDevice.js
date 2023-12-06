@@ -69,8 +69,8 @@ function RegisterDevice () {
                 <View style={styles.orderContainer}>
                     <Text style={styles.orderText}>아래 QR을 제품에서 찾아 스캔해주세요.</Text>
                     <View style={styles.networkContainer}>
-                        <View style={styles.networkImgContainer}><Image source={require('./../images/thinqQR.png')} style={styles.qrImg}/></View>
-                        <View style={styles.networkImgContainer}><Image source={require('./../images/matterQR.png')} style={styles.qrImg}/></View>
+                        <View style={styles.networkImgContainer}><Image source={require('./../../assets/images/thinqQR.png')} style={styles.qrImg}/></View>
+                        <View style={styles.networkImgContainer}><Image source={require('./../../assets/images/matterQR.png')} style={styles.qrImg}/></View>
                     </View>
                 </View>
 

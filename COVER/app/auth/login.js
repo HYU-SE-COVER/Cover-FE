@@ -21,7 +21,7 @@ function Login() {
 
             <View style={styles.networkLogoContainer}>
                 <View style={styles.LogoImageContainer}>
-                    <Image style={styles.logoImage} source={require('../images/logoImages.png')}/>
+                    <Image style={styles.logoImage} source={require('./../../assets/images/logoImages.png')}/>
                 </View>
             </View>
 

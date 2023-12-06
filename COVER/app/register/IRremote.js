@@ -3,7 +3,7 @@ import {React, useState, useEffect} from 'react';
 import { Link, useRouter, useLocalSearchParams, Stack } from 'expo-router';
 import Axios from 'axios';
 
-import GetURL from '../../components/GetURL';
+import GetURL from './../components/GetURL';
 
 function IRremote () {
     const router = useRouter();
@@ -159,9 +159,9 @@ function IRremote () {
                     </Pressable>
                 </View> */}
                 <View style={controllerStyles.btnContainer}>
-                    <View style={controllerStyles.controllerBtn}><Image source={require('./../images/etc/option1.png')} style={controllerStyles.img}/></View>
-                    <View style={controllerStyles.controllerBtn}><Image source={require('./../images/etc/option2.png')} style={controllerStyles.img}/></View>
-                    <View style={controllerStyles.controllerBtn}><Image source={require('./../images/etc/option3.png')} style={controllerStyles.img}/></View>
+                    <View style={controllerStyles.controllerBtn}><Image source={require('./../../assets/images/etc/option1.png')} style={controllerStyles.img}/></View>
+                    <View style={controllerStyles.controllerBtn}><Image source={require('./../../assets/images/etc/option2.png')} style={controllerStyles.img}/></View>
+                    <View style={controllerStyles.controllerBtn}><Image source={require('./../../assets/images/etc/option3.png')} style={controllerStyles.img}/></View>
                 </View>
             </View>)}
 
